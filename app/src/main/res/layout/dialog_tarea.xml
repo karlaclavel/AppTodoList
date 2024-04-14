@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/componente"
+    android:padding="25dp" >
+
+    <EditText
+        android:id="@+id/etTarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:hint="Añadir tarea:"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btnTarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/btn_ventana"
+        android:layout_marginTop="30dp"
+        android:text="Crear tarea" />
+
+</LinearLayout>

@@ -4,4 +4,8 @@
         <item name="android:fontFamily">@font/concertone</item>
     </style>
 
+    <style name="FontTitulos">
+        <item name="android:fontFamily">@font/homemadeapple</item>
+    </style>
+
 </resources>

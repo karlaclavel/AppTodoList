@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/botones"
-    app:cardCornerRadius="25dp"
+    app:cardCornerRadius="15dp"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
@@ -28,10 +28,10 @@
             android:id="@+id/tvTarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="18sp"
             android:padding="10sp"
-            android:text="Terminar la tarea de Ingenieria de Software"/>
+            android:text="Terminar la tarea de Ingenieria de Software"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

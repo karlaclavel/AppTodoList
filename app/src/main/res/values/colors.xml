@@ -5,22 +5,16 @@
 
     <!-- TODO LIST APP -->
 
-    <color name="creditos">#79A6DC9A</color>
-    <color name="botoninicial">#BCD5E97B</color>
-
     <color name="texto_titulo">#0C435E</color>
-    <color name="botones">#D7DCF1C3</color>
+    <color name="botones">#D7C3E2F1</color>
     <color name="fondo_inicio">#83B9C3</color>
-    <color name="fondo_todo">#BDD4E1</color>
-    <color name="boton_todo">#82D3E1</color>
-    <color name="componente">#E3ADB3</color>
-    <color name="btn_ventana">#EF93A5</color>
+    <color name="boton_todo">#62D6C5</color>
+    <color name="componente">#BCD0DF</color>
+    <color name="btn_ventana">#EACBCB</color>
     <color name="componente_seleccionado">#8FF6ED</color>
     <color name="todo_app">#AEC9CA</color>
     <color name="checkbox">#7497A5</color>
-
-
     <color name="inicio">#45A69B</color>
-    <color name="primary">#BECCCCCC</color>
+    <color name="primary">#BEECECEC</color>
 
 </resources>

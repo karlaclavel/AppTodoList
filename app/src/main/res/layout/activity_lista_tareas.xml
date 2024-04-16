@@ -31,20 +31,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="40dp"
-            android:text="Lista de tareas"
-            android:textAllCaps="true"
+            android:fontFamily="@font/homemadeapple"
+            android:text="tareas"
             android:layout_gravity="center"
             android:textColor="@color/texto_titulo"
-            android:textSize="30dp"
+            android:textSize="40sp"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTarea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp" />
+            android:paddingBottom="50dp"
+            android:layout_marginHorizontal="5dp" />
 
     </LinearLayout>
 

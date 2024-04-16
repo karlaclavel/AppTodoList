@@ -2,6 +2,7 @@ package org.app.listatareas
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -13,6 +14,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.app.listatareas.databinding.ActivityListaTareasBinding
 
 class ListaTareasActivity : AppCompatActivity() {
+
+    private val PREF_NAME = "TareasPrefs"
+    private val PREF_TAREAS = "Tareas"
 
     private lateinit var binding: ActivityListaTareasBinding
 
@@ -29,6 +33,8 @@ class ListaTareasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityListaTareasBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        cargarTareas() // Cargar tareas al iniciar
 
         initComponent()
         initUI()
@@ -70,6 +76,7 @@ class ListaTareasActivity : AppCompatActivity() {
             if (tareaText.isNotEmpty()) {
                 tareas.add(Tarea(tareaText))
                 actualizarTareas()
+                guardarTareas() // Guardar tareas después de agregar
                 dialog.hide()
             } else {
                 // Mostrar alerta
@@ -82,7 +89,8 @@ class ListaTareasActivity : AppCompatActivity() {
    // Seleccionar tarea cambia el estado de seleccion de la tarea
     private fun tareaSeleccionada(position:Int) {
         tareas[position].estaSeleccionado = ! tareas[position].estaSeleccionado
-       actualizarTareas()
+        actualizarTareas()
+        guardarTareas() // Guardar tareas después de agregar
     }
 
     // Actualizar tareas
@@ -95,6 +103,32 @@ class ListaTareasActivity : AppCompatActivity() {
     private fun deleteTarea(position: Int) {
         tareas.removeAt(position)
         tareaAdapter.notifyDataSetChanged()
+        guardarTareas() // Guardar tareas después de agregar
     }
+
+    private fun guardarTareas() {
+        val prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+        val editor = prefs.edit()
+        val tareaSet = HashSet<String>()
+
+        for (tarea in tareas) {
+            tareaSet.add(tarea.nombre)
+        }
+
+        editor.putStringSet(PREF_TAREAS, tareaSet)
+        editor.apply()
+    }
+
+    private fun cargarTareas() {
+        val prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+        val tareaSet = prefs.getStringSet(PREF_TAREAS, HashSet<String>()) ?: HashSet<String>()
+
+        tareas.clear()
+
+        for (tareaNombre in tareaSet) {
+            tareas.add(Tarea(tareaNombre))
+        }
+    }
+
 
 }

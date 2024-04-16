@@ -2,8 +2,8 @@ package org.app.listatareas
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -15,14 +15,15 @@ import org.app.listatareas.databinding.ActivityListaTareasBinding
 
 class ListaTareasActivity : AppCompatActivity() {
 
+    // Nombres de las preferencias compartidas
     private val PREF_NAME = "TareasPrefs"
     private val PREF_TAREAS = "Tareas"
 
     private lateinit var binding: ActivityListaTareasBinding
 
     private lateinit var rvTarea: RecyclerView
-    private lateinit var tareaAdapter: TareaAdapter
-    private lateinit var fabAddTarea: FloatingActionButton
+    private lateinit var tareaAdapter: TareaAdapter // Adaptador para el RecyclerView
+    private lateinit var fabAddTarea: FloatingActionButton // Botón flotante
 
     private val tareas = mutableListOf(
         Tarea("Organizar carpeta de descargas"),
@@ -34,11 +35,15 @@ class ListaTareasActivity : AppCompatActivity() {
         binding = ActivityListaTareasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        cargarTareas() // Cargar tareas al iniciar
-
-        initComponent()
-        initUI()
-        initListeners()
+        try {
+            cargarTareas() // Cargar tareas al iniciar
+            initComponent()
+            initUI()
+            initListeners()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Error al cargar la actividad", Toast.LENGTH_LONG).show()
+        }
 
     }
 
@@ -55,12 +60,10 @@ class ListaTareasActivity : AppCompatActivity() {
 
     // Iniciar la vista
     private fun initUI() {
-        tareaAdapter = TareaAdapter(tareas, { position -> tareaSeleccionada(position) },
-            { position -> deleteTarea(position) })
+        tareaAdapter = TareaAdapter(tareas, { position -> tareaSeleccionada(position) }, { position -> deleteTarea(position) })
         rvTarea.layoutManager = LinearLayoutManager(this)
-        // Se asigna el adaptador
+        // Se asigna el adaptador al RecyclerView
         rvTarea.adapter = tareaAdapter
-
     }
 
     // Dialogo para agregar una nueva tarea
@@ -76,10 +79,9 @@ class ListaTareasActivity : AppCompatActivity() {
             if (tareaText.isNotEmpty()) {
                 tareas.add(Tarea(tareaText))
                 actualizarTareas()
-                guardarTareas() // Guardar tareas después de agregar
+                guardarTareas()
                 dialog.hide()
             } else {
-                // Mostrar alerta
                 Toast.makeText(this, "El campo de tarea está vacío", Toast.LENGTH_SHORT).show()
             }
         }
@@ -90,10 +92,10 @@ class ListaTareasActivity : AppCompatActivity() {
     private fun tareaSeleccionada(position:Int) {
         tareas[position].estaSeleccionado = ! tareas[position].estaSeleccionado
         actualizarTareas()
-        guardarTareas() // Guardar tareas después de agregar
+        guardarTareas()
     }
 
-    // Actualizar tareas
+    // Actualizar tareas en el RecyclerView
     @SuppressLint("NotifyDataSetChanged")
     private fun actualizarTareas () {
         tareaAdapter.notifyDataSetChanged()
@@ -103,32 +105,33 @@ class ListaTareasActivity : AppCompatActivity() {
     private fun deleteTarea(position: Int) {
         tareas.removeAt(position)
         tareaAdapter.notifyDataSetChanged()
-        guardarTareas() // Guardar tareas después de agregar
+        guardarTareas()
     }
 
+    // Guarda las tareas en las preferencias compartidas
     private fun guardarTareas() {
         val prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         val editor = prefs.edit()
-        val tareaSet = HashSet<String>()
-
-        for (tarea in tareas) {
-            tareaSet.add(tarea.nombre)
-        }
-
-        editor.putStringSet(PREF_TAREAS, tareaSet)
+        val tareaStrings = tareas.map { tarea -> "${tarea.nombre},${tarea.estaSeleccionado}" }
+        editor.putStringSet(PREF_TAREAS, tareaStrings.toSet())
         editor.apply()
     }
 
+    // Carga las tareas guardadas desde las preferencias comparticas y las guarda en la lista de tareas
     private fun cargarTareas() {
         val prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
-        val tareaSet = prefs.getStringSet(PREF_TAREAS, HashSet<String>()) ?: HashSet<String>()
+        val tareaStrings = prefs.getStringSet(PREF_TAREAS, setOf()) ?: setOf()
 
         tareas.clear()
 
-        for (tareaNombre in tareaSet) {
-            tareas.add(Tarea(tareaNombre))
+        for (tareaString in tareaStrings) {
+            val partes = tareaString.split(",")
+            if (partes.size == 2) {
+                val nombre = partes[0]
+                val estaSeleccionado = partes[1].toBoolean()
+                tareas.add(Tarea(nombre, estaSeleccionado))
+            }
         }
     }
-
 
 }

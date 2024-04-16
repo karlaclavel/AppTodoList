@@ -4,17 +4,16 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- TODO LIST APP -->
+    <color name="inicio">#45A69B</color>
+    <color name="primary">#BEECECEC</color>
 
     <color name="texto_titulo">#0C435E</color>
     <color name="botones">#D7C3E2F1</color>
     <color name="fondo_inicio">#83B9C3</color>
-    <color name="boton_todo">#62D6C5</color>
+    <color name="boton_todo">#84E4D6</color>
     <color name="componente">#BCD0DF</color>
     <color name="btn_ventana">#EACBCB</color>
     <color name="componente_seleccionado">#8FF6ED</color>
-    <color name="todo_app">#AEC9CA</color>
     <color name="checkbox">#7497A5</color>
-    <color name="inicio">#45A69B</color>
-    <color name="primary">#BEECECEC</color>
 
 </resources>

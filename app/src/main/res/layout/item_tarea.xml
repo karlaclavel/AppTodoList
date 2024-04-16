@@ -22,11 +22,14 @@
         <CheckBox
             android:id="@+id/cbCheckbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:backgroundTintMode="@color/boton_todo"
+            android:backgroundTint="@color/btn_ventana"
+            />
 
         <TextView
             android:id="@+id/tvTarea"
-            android:layout_width="wrap_content"
+            android:layout_width="315dp"
             android:layout_height="wrap_content"
             android:padding="10sp"
             android:text="Terminar la tarea de Ingenieria de Software"

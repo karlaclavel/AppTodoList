@@ -1,13 +1,12 @@
 package org.app.listatareas
 
 import android.graphics.Paint
-import android.view.View
-import android.widget.TextView
-import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import org.app.listatareas.databinding.ItemTareaBinding
 
-// Proporciona las vistas individuales para cada uno de los elementos
+/*** TareaViewHolder organiza y gestiona los datos que se muestran ***/
+
+// Proporciona y actualiza  las vistas individuales para cada uno de los elementos
 class TareaViewHolder(private val binding: ItemTareaBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun render(tarea: Tarea) {
